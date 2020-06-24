@@ -1,0 +1,5 @@
+rootProject.name='scaffold'
+include ':app'
+include ':scaffold-common'
+include ':scaffold-mvp'
+include ':scaffold-mvvm'

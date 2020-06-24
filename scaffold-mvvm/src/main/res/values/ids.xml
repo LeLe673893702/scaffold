@@ -1,0 +1,4 @@
+<resources>
+    <item name="smartRefreshLayout" type="id"/>
+    <item name="recycleView" type="id"/>
+</resources>

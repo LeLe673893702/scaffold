@@ -22,4 +22,8 @@ interface BaseViewLifecycle<ViewModel> {
     fun getLayoutId(): Int
 
     fun getViewModel():ViewModel
+
+    fun observerData()
+
+    fun observerEvent()
 }

@@ -1,8 +1,8 @@
 Properties properties = new Properties()
-properties.load(new FileInputStream("./bintray.properties"))
+properties.load(new FileInputStream("./bintray-mvvm.properties"))
 
-def gitUrl = 'https://github.com/LeLe673893702/mvpscaffold.git'   // Git仓库的url
-def siteUrl = 'https://github.com/LeLe673893702/mvpscaffold'   // 项目的主页
+def gitUrl = 'https://github.com/LeLe673893702/scaffold.git'   // Git仓库的url
+def siteUrl = 'https://github.com/LeLe673893702/scaffold'   // 项目的主页
 
 version = properties.getProperty("version")
 group = "com.newler"
@@ -25,7 +25,7 @@ bintray {
 
         version {
             name = version
-            desc = 'mvp scaffold rapid construction project'
+            desc = 'mvvm scaffold rapid construction project'
             released = new Date()
             vcsTag = version
             attributes = ['gradle-plugin': 'com.use.less:com.use.less.gradle:gradle-useless-plugin']
@@ -33,7 +33,6 @@ bintray {
     }
     configurations = ['archives']
 }
-
 
 
 install {
@@ -47,7 +46,7 @@ install {
                 packaging 'aar'
                 // Add your description here
                 name properties.getProperty("pom_name")
-                description 'mvp scaffold rapid construction project'
+                description 'mvvm scaffold rapid construction project'
                 url siteUrl
                 // Set your license
                 licenses {
@@ -108,4 +107,4 @@ artifacts {
     archives sourcesJar
 }
 
-// gradlew :scaffold:bintrayUpload --no-configure-on-demand --no-parallel
+// gradlew :scaffold-mvvm:bintrayUpload --no-configure-on-demand --no-parallel

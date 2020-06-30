@@ -40,3 +40,4 @@ dependencies {
     }
     implementation project(path: ':scaffold-common')
 }
+apply from: '../bintray-mvp.gradle'

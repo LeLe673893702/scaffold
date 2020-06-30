@@ -28,7 +28,7 @@ abstract class BaseStateActivity<ViewModel: BaseStateViewModel> : BaseActivity<V
         observerData()
     }
 
-    protected open fun observerData() {
+    override fun observerData() {
         observerPageState()
     }
 

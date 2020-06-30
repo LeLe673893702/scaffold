@@ -56,7 +56,7 @@ abstract class BaseStateFragment<ViewModel : BaseStateViewModel> : BaseFragment<
         }
     }
 
-    protected open fun observerData() {
+    override fun observerData() {
         observerPageState()
     }
 

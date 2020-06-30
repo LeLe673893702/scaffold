@@ -1,6 +1,9 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'com.jfrog.bintray'
+apply plugin: 'com.github.dcendents.android-maven'
+apply plugin: 'org.jetbrains.dokka-android'
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.3"
@@ -69,3 +72,4 @@ dependencies {
 
     api rootProject.ext.dependencies['multitype']
 }
+apply from: '../bintray-common.gradle'

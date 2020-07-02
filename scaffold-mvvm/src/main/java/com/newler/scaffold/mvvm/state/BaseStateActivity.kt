@@ -25,7 +25,6 @@ abstract class BaseStateActivity<ViewModel: BaseStateViewModel> : BaseActivity<V
 
         withRetryListener()
 
-        observerData()
     }
 
     override fun observerData() {

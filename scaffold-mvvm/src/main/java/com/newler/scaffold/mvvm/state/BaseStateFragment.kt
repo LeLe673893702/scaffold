@@ -46,8 +46,6 @@ abstract class BaseStateFragment<ViewModel : BaseStateViewModel> : BaseFragment<
 
         withRetryListener()
 
-        observerData()
-
         backCallback = requireActivity().onBackPressedDispatcher.addCallback {
             try {
                 findNavController().popBackStack()

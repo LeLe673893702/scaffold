@@ -37,6 +37,9 @@ abstract class BaseFragment<ViewModel: BaseViewModel> : Fragment(), BaseViewLife
         registerEvent()
 
         mViewModel?.onStart()
+
+        observerData()
+        observerEvent()
     }
 
     fun <T> autoDispose(): AutoDisposeConverter<T> {

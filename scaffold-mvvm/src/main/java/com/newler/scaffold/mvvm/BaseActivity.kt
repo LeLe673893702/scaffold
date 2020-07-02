@@ -30,6 +30,9 @@ abstract class BaseActivity<ViewModel: BaseViewModel> : AppCompatActivity(), Bas
             initView()
 
             registerEvent()
+
+            observerData()
+            observerEvent()
         }
     }
 

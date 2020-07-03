@@ -12,7 +12,7 @@ import com.newler.state.ViewState
  * @date 2020/6/23
  *
  */
-abstract class BaseStateActivity<ViewModel: BaseStateViewModel> : BaseActivity<ViewModel>() {
+abstract class BaseStateActivity<ViewModel: BaseStateViewModel> : BaseActivity<ViewModel>(), BaseStateView {
 
     protected open val holder by lazy {
         StateManager.instance.wrap(this)
@@ -34,12 +34,28 @@ abstract class BaseStateActivity<ViewModel: BaseStateViewModel> : BaseActivity<V
     protected open fun observerPageState() {
         mViewModel?.viewState?.observe(this, Observer {
             when(it) {
-                ViewState.CONTENT -> holder?.showContent()
-                ViewState.EMPTY_DATA -> holder?.showEmpty()
-                ViewState.LOADING -> holder?.showLoading()
-                else -> holder?.showLoadFailed()
+                ViewState.CONTENT -> showContent()
+                ViewState.EMPTY_DATA -> showEmpty()
+                ViewState.LOADING -> showLoading()
+                else -> showLoadFailed()
             }
         })
+    }
+
+    override fun showContent() {
+        holder?.showContent()
+    }
+
+    override fun showEmpty() {
+        holder?.showEmpty()
+    }
+
+    override fun showLoadFailed() {
+        holder?.showLoadFailed()
+    }
+
+    override fun showLoading() {
+        holder?.showLoading()
     }
 
     protected open fun withRetryListener() {

@@ -14,7 +14,7 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout
  * @date 2020/6/24
  *
  */
-abstract class BaseListFragment<ViewModel: BaseListViewModel> : BaseStateActivity<ViewModel>() {
+abstract class BaseListFragment<ViewModel: BaseListViewModel> : BaseStateActivity<ViewModel>(), BaseListView {
     protected open val refreshLayout: SmartRefreshLayout? by lazy {
         findViewById<SmartRefreshLayout>(R.id.smartRefreshLayout)
     }
@@ -67,6 +67,57 @@ abstract class BaseListFragment<ViewModel: BaseListViewModel> : BaseStateActivit
         refreshLayout?.setOnLoadMoreListener {
             mViewModel?.onLoadMore()
         }
+    }
+
+    override fun initLoadSucceed(data: List<Any>, isLastPage:Boolean, isFirstPage:Boolean) {
+        dataAdapter.items = data
+        dataAdapter.notifyDataSetChanged()
+        if (data.isEmpty()) {
+            showEmpty()
+        } else {
+            showContent()
+        }
+        if (isLastPage) {
+            refreshLayout?.finishLoadMoreWithNoMoreData()
+        }
+    }
+
+    override fun refreshSucceed(data: List<Any>, isLastPage:Boolean) {
+        dataAdapter.items = data
+        dataAdapter.notifyDataSetChanged()
+
+        if (isLastPage) {
+            refreshLayout?.finishRefreshWithNoMoreData()
+        } else {
+            refreshLayout?.finishRefresh(true)
+        }
+    }
+
+    /**
+     * 数据源需要先在外部更新后,再通知列表更新数据,adapter和数据源是一份
+     */
+    override fun loadMoreSucceed(data: List<Any>, isLastPage:Boolean) {
+        val count = data.size
+        val start = dataAdapter.items.size - count
+
+        dataAdapter.notifyItemRangeInserted(start, count)
+        if (isLastPage) {
+            refreshLayout?.finishLoadMoreWithNoMoreData()
+        } else {
+            refreshLayout?.finishLoadMore(true)
+        }
+    }
+
+    override fun initLoadFailed() {
+        showLoadFailed()
+    }
+
+    override fun refreshFailed() {
+        refreshLayout?.finishRefresh(false)
+    }
+
+    override fun loadMoreFailed() {
+        refreshLayout?.finishLoadMore(false)
     }
 
     /**

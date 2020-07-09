@@ -44,8 +44,10 @@ dependencies {
     api rootProject.ext.dependencies['viewmodel-savedstate']
     api rootProject.ext.dependencies['livedata']
     api rootProject.ext.dependencies['lifecycle']
-    api rootProject.ext.dependencies['navigation-fragment']
-    api rootProject.ext.dependencies['navigation-ui']
+    implementation rootProject.ext.dependencies['navigation-fragment']
+    implementation rootProject.ext.dependencies['navigation-ui']
+    implementation "androidx.fragment:fragment:1.2.5"
+    implementation "androidx.fragment:fragment-ktx:1.2.5"
 
 }
 apply from: '../bintray-mvvm.gradle'

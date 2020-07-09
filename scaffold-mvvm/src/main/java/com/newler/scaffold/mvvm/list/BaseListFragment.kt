@@ -4,6 +4,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.drakeet.multitype.MultiTypeAdapter
 import com.newler.scaffold.mvvm.state.BaseStateActivity
+import com.newler.scaffold.mvvm.state.BaseStateFragment
 import com.newler.scaffold_mvvm.R
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
 
@@ -14,13 +15,13 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout
  * @date 2020/6/24
  *
  */
-abstract class BaseListFragment<ViewModel: BaseListViewModel> : BaseStateActivity<ViewModel>(), BaseListView {
+abstract class BaseListFragment<ViewModel: BaseListViewModel> : BaseStateFragment<ViewModel>(), BaseListView {
     protected open val refreshLayout: SmartRefreshLayout? by lazy {
-        findViewById<SmartRefreshLayout>(R.id.smartRefreshLayout)
+        view?.findViewById<SmartRefreshLayout>(R.id.smartRefreshLayout)
     }
 
     protected open val recyclerView: RecyclerView? by lazy {
-        findViewById<RecyclerView?>(R.id.recycleView)
+        view?.findViewById<RecyclerView?>(R.id.recycleView)
     }
 
     protected open val dataAdapter: MultiTypeAdapter by lazy {
@@ -42,7 +43,7 @@ abstract class BaseListFragment<ViewModel: BaseListViewModel> : BaseStateActivit
     }
 
     protected open fun getLayoutManager() : RecyclerView.LayoutManager {
-        return LinearLayoutManager(this, RecyclerView.VERTICAL, false)
+        return LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
     }
 
     /**

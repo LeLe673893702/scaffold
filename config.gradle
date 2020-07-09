@@ -19,7 +19,7 @@ ext {
             canarySdkVersion        : "1.6.3",
             pagingVersion           : "2.1.0",
             lifecycle_version       : "2.2.0",
-            navigationVersion       : "2.3.0-rc01"
+            navigationVersion       : "2.3.0"
     ]
 
     dependencies = [

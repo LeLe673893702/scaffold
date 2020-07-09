@@ -1,6 +1,7 @@
 package com.newler.scaffold.mvvm.state
 
 import android.os.Bundle
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import com.newler.scaffold.mvvm.BaseActivity
 import com.newler.state.StateManager
@@ -28,11 +29,11 @@ abstract class BaseStateActivity<ViewModel: BaseStateViewModel> : BaseActivity<V
     }
 
     override fun observerData() {
-        observerPageState()
+        mViewModel?.viewState?.let { observerPageState(it) }
     }
 
-    protected open fun observerPageState() {
-        mViewModel?.viewState?.observe(this, Observer {
+    protected open fun observerPageState(viewState: LiveData<Int>) {
+        viewState.observe(this, Observer {
             when(it) {
                 ViewState.CONTENT -> showContent()
                 ViewState.EMPTY_DATA -> showEmpty()

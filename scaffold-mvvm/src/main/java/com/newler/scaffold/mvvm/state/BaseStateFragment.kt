@@ -1,12 +1,12 @@
 package com.newler.scaffold.mvvm.state
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.addCallback
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.newler.scaffold.mvvm.BaseFragment
@@ -20,7 +20,7 @@ import com.newler.state.ViewState
  * @date 2020/6/23
  *
  */
-abstract class BaseStateFragment<ViewModel : BaseStateViewModel> : BaseFragment<ViewModel>() {
+abstract class BaseStateFragment<ViewModel : BaseStateViewModel> : BaseFragment<ViewModel>(), BaseStateView {
 
     // 点击返回键监听回调
     protected var backCallback : OnBackPressedCallback? = null
@@ -55,16 +55,16 @@ abstract class BaseStateFragment<ViewModel : BaseStateViewModel> : BaseFragment<
     }
 
     override fun observerData() {
-        observerPageState()
+        mViewModel?.viewState?.let { observerPageState(it) }
     }
 
-    protected open fun observerPageState() {
-        mViewModel?.viewState?.observe(viewLifecycleOwner, Observer {
+    protected open fun observerPageState(viewState: LiveData<Int>) {
+        viewState.observe(this, Observer {
             when(it) {
-                ViewState.CONTENT -> holder?.showContent()
-                ViewState.EMPTY_DATA -> holder?.showEmpty()
-                ViewState.LOADING -> holder?.showLoading()
-                else -> holder?.showLoadFailed()
+                ViewState.CONTENT -> showContent()
+                ViewState.EMPTY_DATA -> showEmpty()
+                ViewState.LOADING -> showLoading()
+                else -> showLoadFailed()
             }
         })
     }
@@ -73,5 +73,21 @@ abstract class BaseStateFragment<ViewModel : BaseStateViewModel> : BaseFragment<
         holder?.withRetryListener(Runnable {
             mViewModel?.onRetry()
         })
+    }
+
+    override fun showContent() {
+        holder?.showContent()
+    }
+
+    override fun showEmpty() {
+        holder?.showEmpty()
+    }
+
+    override fun showLoadFailed() {
+        holder?.showLoading()
+    }
+
+    override fun showLoading() {
+        holder?.showLoading()
     }
 }

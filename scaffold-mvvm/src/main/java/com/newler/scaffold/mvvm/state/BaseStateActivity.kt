@@ -15,12 +15,12 @@ import com.newler.state.ViewState
  */
 abstract class BaseStateActivity<ViewModel: BaseStateViewModel> : BaseActivity<ViewModel>(), BaseStateView {
 
-    protected open val holder by lazy {
-        StateManager.instance.wrap(this)
-    }
+    protected open var holder:StateManager.Holder? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        holder = StateManager.instance.wrap(this)
 
         mViewModel?.onLoadData()
 

@@ -25,18 +25,17 @@ abstract class BaseStateFragment<ViewModel : BaseStateViewModel> : BaseFragment<
     // 点击返回键监听回调
     protected var backCallback : OnBackPressedCallback? = null
 
-    protected open val holder by lazy {
-        view?.let {
-            StateManager.instance.wrap(it)
-        }
-    }
+    protected open var holder : StateManager.Holder? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(getLayoutId(),container, false)
+        val view = inflater.inflate(getLayoutId(),container, false)
+        holder = StateManager.instance.wrap(view)
+
+        return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

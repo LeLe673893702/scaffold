@@ -33,13 +33,13 @@ abstract class BaseStateFragment<ViewModel : BaseStateViewModel> : BaseFragment<
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(getLayoutId(),container, false)
-        holder = StateManager.instance.wrap(view)
 
         return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        holder = StateManager.instance.wrap(view)
 
         mViewModel?.onLoadData()
 

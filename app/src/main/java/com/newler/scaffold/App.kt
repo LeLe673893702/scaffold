@@ -3,6 +3,7 @@ package com.newler.scaffold
 import android.app.Application
 import android.content.Context
 import androidx.multidex.MultiDex
+import com.newler.scaffold.common.config.AppManager
 
 /**
  *
@@ -14,10 +15,11 @@ import androidx.multidex.MultiDex
 class App : Application() {
     override fun onCreate() {
         super.onCreate()
-
+        AppManager.instance.init(this)
     }
     override fun attachBaseContext(base: Context?) {
         super.attachBaseContext(base)
         MultiDex.install(this)
     }
+
 }

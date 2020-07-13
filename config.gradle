@@ -61,7 +61,7 @@ ext {
             "autosize"                 : "me.jessyan:autosize:1.1.2",
             "smartrefresh"             : "com.scwang.smartrefresh:SmartRefreshLayout:1.1.0",
             "smartrefresh-header"      : "com.scwang.smartrefresh:SmartRefreshHeader:1.1.0",
-            "statusmanager"            : "com.newler:statusmanager:1.0.7",
+            "statusmanager"            : "com.newler:statusmanager:1.0.8",
             "paging"                   : "androidx.paging:paging-runtime:${version["pagingVersion"]}",
             "paging-rxjava2"           : "androidx.paging:paging-rxjava2:${version["pagingVersion"]}",
             "multitype"                : "com.drakeet.multitype:multitype:4.2.0",

@@ -19,13 +19,11 @@ import com.newler.state.StateManager
  * create an instance of this fragment.
  */
 class BlankFragment : BaseStateFragment<BaseStateViewModel>() {
-     lateinit var holder1: Gloading.Holder
 
 
     override fun initView() {
-        holder1 = Gloading.from(StateManagerAdapter()).wrap(view)
-
-        holder1.showLoadSuccess()
+        holder?.showContent()
+        holder?.showLoading()
     }
 
     override fun registerEvent() {

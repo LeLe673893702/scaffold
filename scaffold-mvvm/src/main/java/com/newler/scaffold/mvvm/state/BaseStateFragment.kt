@@ -4,8 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.addCallback
+import androidx.fragment.app.FragmentContainerView
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -32,14 +34,23 @@ abstract class BaseStateFragment<ViewModel : BaseStateViewModel> : BaseFragment<
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(getLayoutId(),container, false)
+        if (container is FragmentContainerView) {
+            val wrapper = FrameLayout(requireContext())
+            wrapper.layoutParams = FrameLayout.LayoutParams(-1, -1)
+            val view = inflater.inflate(getLayoutId(), wrapper, false)
+            wrapper.addView(view)
+            holder = StateManager.instance.cover(view, wrapper)
 
-        return view
+            return wrapper
+        } else {
+            val view = inflater.inflate(getLayoutId(), container, false)
+            holder = StateManager.instance.wrap(view)
+            return view
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        holder = StateManager.instance.wrap(view)
 
         mViewModel?.onLoadData()
 

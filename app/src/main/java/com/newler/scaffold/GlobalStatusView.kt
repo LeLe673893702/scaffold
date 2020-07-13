@@ -18,7 +18,7 @@ import com.qmuiteam.qmui.widget.QMUIEmptyView
  */
 class GlobalStatusView(context:Context,
                        var viewState:Int?,
-                       var holder: Gloading.Holder
+                       var holder: StateManager.Holder
 ) : QMUIEmptyView(context) {
 
     init {
@@ -37,7 +37,7 @@ class GlobalStatusView(context:Context,
                     null,
                     "点击重试"
                 ) {
-//                    holder.getViewStateListener(ViewState.LOAD_FAILED)?.run()
+                    holder.getViewStateListener(ViewState.LOAD_FAILED)?.run()
                 }
         }
     }

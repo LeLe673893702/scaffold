@@ -3,8 +3,7 @@ package com.newler.scaffold.mvvm.list
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.drakeet.multitype.MultiTypeAdapter
-import com.newler.scaffold.mvvm.state.BaseStateActivity
-import com.newler.scaffold.mvvm.state.BaseStateFragment
+import com.newler.scaffold.mvvm.state.BaseStateNavigationFragment
 import com.newler.scaffold_mvvm.R
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
 
@@ -15,7 +14,7 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout
  * @date 2020/6/24
  *
  */
-abstract class BaseListFragment<ViewModel: BaseListViewModel> : BaseStateFragment<ViewModel>(), BaseListView {
+abstract class BaseListNavigationFragment<ViewModel: BaseListViewModel> : BaseStateNavigationFragment<ViewModel>(), BaseListView {
     protected open val refreshLayout: SmartRefreshLayout? by lazy {
         view?.findViewById<SmartRefreshLayout>(R.id.smartRefreshLayout)
     }

@@ -3,7 +3,6 @@ package com.newler.scaffold.mvvm.state
 import androidx.lifecycle.MutableLiveData
 import com.newler.scaffold.mvvm.BaseViewModel
 import com.newler.state.ViewState
-import kotlinx.coroutines.CoroutineExceptionHandler
 
 /**
  *
@@ -13,6 +12,10 @@ import kotlinx.coroutines.CoroutineExceptionHandler
  *
  */
 abstract class BaseStateViewModel: BaseViewModel() {
+    override fun onStart() {
+        onLoadData()
+    }
+
     @ViewState
     val viewState = MutableLiveData<Int>()
 

@@ -20,12 +20,21 @@ import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider
  * @date 2020/6/23
  *
  */
-abstract class BaseFragment<ViewModel: BaseViewModel> : Fragment(), BaseViewLifecycle<ViewModel> {
+abstract class BaseNavigationFragment<ViewModel: BaseViewModel> : Fragment(), BaseViewLifecycle<ViewModel> {
     protected open var mViewModel: ViewModel? = null
+    protected open var rootView: View? = null
+    protected open var hasViewCreated = false
     // 点击返回键监听回调
-    protected var backCallback : OnBackPressedCallback? = null
+    protected lateinit var backCallback : OnBackPressedCallback
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(getLayoutId(), container, false)
+        rootView?.let {
+            (it.parent as? ViewGroup)?.removeView(it)
+        } ?: kotlin.run {
+            rootView = inflater.inflate(getLayoutId(), container, false)
+        }
+
+        return rootView
     }
 
     override fun onAttach(context: Context) {
@@ -36,20 +45,25 @@ abstract class BaseFragment<ViewModel: BaseViewModel> : Fragment(), BaseViewLife
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initView()
+        if (!hasViewCreated) {
 
-        registerEvent()
+            hasViewCreated = true
 
-        mViewModel?.onStart()
+            initView()
 
-        observerData()
-        observerEvent()
+            registerEvent()
 
-        backCallback = requireActivity().onBackPressedDispatcher.addCallback {
-            try {
-                findNavController().popBackStack()
-            } catch (e: Exception) {
-                e.printStackTrace()
+            mViewModel?.onStart()
+
+            observerData()
+            observerEvent()
+
+            backCallback = requireActivity().onBackPressedDispatcher.addCallback {
+                try {
+                    findNavController().popBackStack()
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
             }
         }
     }
